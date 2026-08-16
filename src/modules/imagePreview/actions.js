@@ -87,8 +87,7 @@ export function createImagePreviewActionMethods() {
       const text = urls.join('\n');
       this.copyTextWithGM(text)
         .then(() => utils.notificationManager.show(`已复制 ${urls.length} 个选中图片链接到剪贴板`))
-        .catch((error) => {
-          console.error('复制失败:', error);
+        .catch(() => {
           this.fallbackCopyText(text);
         });
     },
@@ -102,8 +101,7 @@ export function createImagePreviewActionMethods() {
       const text = items.map((item) => `![${item.fileName || 'image'}](${item.src})`).join('\n');
       this.copyTextWithGM(text)
         .then(() => utils.notificationManager.show(`已复制 ${items.length} 条图片引用`))
-        .catch((error) => {
-          console.error('复制失败:', error);
+        .catch(() => {
           this.fallbackCopyText(text);
         });
     },
@@ -134,8 +132,7 @@ export function createImagePreviewActionMethods() {
       const text = urls.join('\n');
       this.copyTextWithGM(text)
         .then(() => utils.notificationManager.show(`已复制 ${urls.length} 个图片链接到剪贴板`))
-        .catch((error) => {
-          console.error('复制失败:', error);
+        .catch(() => {
           this.fallbackCopyText(text);
         });
     },
@@ -172,8 +169,7 @@ export function createImagePreviewActionMethods() {
       }
       this.copyTextWithGM(src)
         .then(() => utils.notificationManager.show('图片链接已复制到剪贴板'))
-        .catch((error) => {
-          console.error('复制失败:', error);
+        .catch(() => {
           this.fallbackCopyText(src);
         });
     },

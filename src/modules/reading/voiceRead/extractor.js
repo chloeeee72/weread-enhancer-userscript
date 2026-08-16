@@ -943,9 +943,6 @@ function warnExtractionFailure(details) {
   const signature = JSON.stringify(diagnostic);
   if (signature === extractorState.lastDiagnosticSignature) return;
   extractorState.lastDiagnosticSignature = signature;
-  if (typeof console !== 'undefined' && typeof console.warn === 'function') {
-    console.warn('[WereadTTS] 未找到章节正文', diagnostic);
-  }
 }
 
 function refreshReaderContext() {

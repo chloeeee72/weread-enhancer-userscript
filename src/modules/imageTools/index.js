@@ -302,8 +302,7 @@ const imageTools = {
 
     this.copyTextWithGM(src)
       .then(() => utils.notificationManager.show('图片链接已复制到剪贴板'))
-      .catch((error) => {
-        console.error('复制失败:', error);
+      .catch(() => {
         this.fallbackCopyText(src);
       });
   },
@@ -332,8 +331,7 @@ const imageTools = {
       } else {
         this.fallbackCopyText2(text);
       }
-    } catch (error) {
-      console.error('备用复制方法1失败:', error);
+    } catch {
       this.fallbackCopyText2(text);
     }
   },
@@ -357,8 +355,7 @@ const imageTools = {
       } else {
         utils.notificationManager.show('复制失败，请手动复制链接');
       }
-    } catch (error) {
-      console.error('备用复制方法2失败:', error);
+    } catch {
       utils.notificationManager.show('复制失败，请手动复制链接');
     }
   },
@@ -404,8 +401,7 @@ const imageTools = {
         url: normalizedItem.src,
         name: normalizedItem.fileName,
         onload: () => callback?.(true),
-        onerror: (error) => {
-          console.error('下载失败:', normalizedItem.src, error);
+        onerror: () => {
           if (attempt < 2) {
             setTimeout(() => {
               this.downloadSingleImageByUrl(normalizedItem, index, callback, attempt + 1);

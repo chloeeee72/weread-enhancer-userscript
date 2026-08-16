@@ -495,8 +495,8 @@ export function createImagePreviewGalleryMethods() {
         if (lastSegment) {
           return lastSegment;
         }
-      } catch (error) {
-        console.error('图片文件名解析失败:', src, error);
+      } catch {
+        // 解析失败时使用兜底文件名
       }
       return `image_${fallbackIndex}.jpg`;
     },
@@ -975,7 +975,6 @@ export function createImagePreviewGalleryMethods() {
           }
           this.isLoading = false;
           this.hideScanBanner();
-          console.error('图片预览加载失败:', error);
           this.renderEmpty('图片加载失败，请稍后重试');
         })
         .finally(() => {

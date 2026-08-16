@@ -2206,8 +2206,7 @@ body:not(.wr_whiteTheme) .panel-resizer::after {
       if (!src) {
         return;
       }
-      this.copyTextWithGM(src).then(() => utils.notificationManager.show("图片链接已复制到剪贴板")).catch((error) => {
-        console.error("复制失败:", error);
+      this.copyTextWithGM(src).then(() => utils.notificationManager.show("图片链接已复制到剪贴板")).catch(() => {
         this.fallbackCopyText(src);
       });
     },
@@ -2232,8 +2231,7 @@ body:not(.wr_whiteTheme) .panel-resizer::after {
         } else {
           this.fallbackCopyText2(text);
         }
-      } catch (error) {
-        console.error("备用复制方法1失败:", error);
+      } catch {
         this.fallbackCopyText2(text);
       }
     },
@@ -2254,8 +2252,7 @@ body:not(.wr_whiteTheme) .panel-resizer::after {
         } else {
           utils.notificationManager.show("复制失败，请手动复制链接");
         }
-      } catch (error) {
-        console.error("备用复制方法2失败:", error);
+      } catch {
         utils.notificationManager.show("复制失败，请手动复制链接");
       }
     },
@@ -2296,8 +2293,7 @@ body:not(.wr_whiteTheme) .panel-resizer::after {
           url: normalizedItem.src,
           name: normalizedItem.fileName,
           onload: () => callback?.(true),
-          onerror: (error) => {
-            console.error("下载失败:", normalizedItem.src, error);
+          onerror: () => {
             if (attempt < 2) {
               setTimeout(() => {
                 this.downloadSingleImageByUrl(normalizedItem, index, callback, attempt + 1);
@@ -2856,8 +2852,7 @@ body:not(.wr_whiteTheme) .panel-resizer::after {
           if (lastSegment) {
             return lastSegment;
           }
-        } catch (error) {
-          console.error("图片文件名解析失败:", src, error);
+        } catch {
         }
         return `image_${fallbackIndex}.jpg`;
       },
@@ -3275,7 +3270,6 @@ body:not(.wr_whiteTheme) .panel-resizer::after {
           }
           this.isLoading = false;
           this.hideScanBanner();
-          console.error("图片预览加载失败:", error);
           this.renderEmpty("图片加载失败，请稍后重试");
         }).finally(() => {
           if (this.loadToken === token) {
@@ -3359,8 +3353,7 @@ body:not(.wr_whiteTheme) .panel-resizer::after {
           return;
         }
         const text = urls.join("\n");
-        this.copyTextWithGM(text).then(() => utils.notificationManager.show(`已复制 ${urls.length} 个选中图片链接到剪贴板`)).catch((error) => {
-          console.error("复制失败:", error);
+        this.copyTextWithGM(text).then(() => utils.notificationManager.show(`已复制 ${urls.length} 个选中图片链接到剪贴板`)).catch(() => {
           this.fallbackCopyText(text);
         });
       },
@@ -3371,8 +3364,7 @@ body:not(.wr_whiteTheme) .panel-resizer::after {
           return;
         }
         const text = items.map((item) => `![${item.fileName || "image"}](${item.src})`).join("\n");
-        this.copyTextWithGM(text).then(() => utils.notificationManager.show(`已复制 ${items.length} 条图片引用`)).catch((error) => {
-          console.error("复制失败:", error);
+        this.copyTextWithGM(text).then(() => utils.notificationManager.show(`已复制 ${items.length} 条图片引用`)).catch(() => {
           this.fallbackCopyText(text);
         });
       },
@@ -3399,8 +3391,7 @@ body:not(.wr_whiteTheme) .panel-resizer::after {
           return;
         }
         const text = urls.join("\n");
-        this.copyTextWithGM(text).then(() => utils.notificationManager.show(`已复制 ${urls.length} 个图片链接到剪贴板`)).catch((error) => {
-          console.error("复制失败:", error);
+        this.copyTextWithGM(text).then(() => utils.notificationManager.show(`已复制 ${urls.length} 个图片链接到剪贴板`)).catch(() => {
           this.fallbackCopyText(text);
         });
       },
@@ -3431,8 +3422,7 @@ body:not(.wr_whiteTheme) .panel-resizer::after {
           utils.notificationManager.show("获取图片链接失败");
           return;
         }
-        this.copyTextWithGM(src).then(() => utils.notificationManager.show("图片链接已复制到剪贴板")).catch((error) => {
-          console.error("复制失败:", error);
+        this.copyTextWithGM(src).then(() => utils.notificationManager.show("图片链接已复制到剪贴板")).catch(() => {
           this.fallbackCopyText(src);
         });
       },
@@ -5126,9 +5116,6 @@ body:not(.wr_whiteTheme) .panel-resizer::after {
     const signature = JSON.stringify(diagnostic);
     if (signature === extractorState.lastDiagnosticSignature) return;
     extractorState.lastDiagnosticSignature = signature;
-    if (typeof console !== "undefined" && typeof console.warn === "function") {
-      console.warn("[WereadTTS] 未找到章节正文", diagnostic);
-    }
   }
   function refreshReaderContext() {
     const instances = collectVueInstances();
@@ -7813,22 +7800,6 @@ body:not(.wr_whiteTheme) .panel-resizer::after {
         maxAhead = Math.max(150, this.getScrollDistance() * 0.12);
       }
       const safeTarget = target > confirmedTarget + maxAhead ? confirmedTarget + maxAhead : target;
-      const now2 = performance.now();
-      if (GM_getValue("weread_tts_debug", false) && now2 - voiceState.lastDebugSampleAt >= 500) {
-        const doc = getScrollRoot();
-        const actualTop = window.scrollY || doc.scrollTop || 0;
-        voiceState.lastDebugSampleAt = now2;
-        console.log("[WereadTTS]", {
-          spokenOffset: Number(progress.offset.toFixed(2)),
-          desiredTop: Number(target.toFixed(2)),
-          actualTop: Number(actualTop.toFixed(2)),
-          error: Number((target - actualTop).toFixed(2)),
-          boundarySupported: voiceState.boundarySupported,
-          layoutVersion: voiceState.layoutVersion,
-          layoutPoints: voiceState.layoutMap?.points?.length || 0,
-          layoutMode: voiceState.layoutMode
-        });
-      }
       return safeTarget;
     },
     /**
@@ -7970,11 +7941,8 @@ body:not(.wr_whiteTheme) .panel-resizer::after {
       });
       voiceState.layoutResizeObserver.observe(root);
     },
-    /** 调试输出：GM 值 weread_tts_debug 置 true 时打印校准信息 */
-    debugLog(...args) {
-      if (GM_getValue("weread_tts_debug", false)) {
-        console.log("[WereadTTS]", ...args);
-      }
+    /** 调试输出：生产包已移除 console 输出 */
+    debugLog() {
     },
     /** 剩余朗读时长（秒），供 autoRead 计算语音模式下的翻页等待 */
     getRemainingSeconds() {

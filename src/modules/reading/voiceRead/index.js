@@ -880,22 +880,6 @@ export const voiceRead = {
       maxAhead = Math.max(150, this.getScrollDistance() * 0.12);
     }
     const safeTarget = target > confirmedTarget + maxAhead ? confirmedTarget + maxAhead : target;
-    const now = performance.now();
-    if (GM_getValue('weread_tts_debug', false) && now - voiceState.lastDebugSampleAt >= 500) {
-      const doc = getScrollRoot();
-      const actualTop = window.scrollY || doc.scrollTop || 0;
-      voiceState.lastDebugSampleAt = now;
-      console.log('[WereadTTS]', {
-        spokenOffset: Number(progress.offset.toFixed(2)),
-        desiredTop: Number(target.toFixed(2)),
-        actualTop: Number(actualTop.toFixed(2)),
-        error: Number((target - actualTop).toFixed(2)),
-        boundarySupported: voiceState.boundarySupported,
-        layoutVersion: voiceState.layoutVersion,
-        layoutPoints: voiceState.layoutMap?.points?.length || 0,
-        layoutMode: voiceState.layoutMode
-      });
-    }
     return safeTarget;
   },
 
@@ -1052,12 +1036,8 @@ export const voiceRead = {
     voiceState.layoutResizeObserver.observe(root);
   },
 
-  /** 调试输出：GM 值 weread_tts_debug 置 true 时打印校准信息 */
-  debugLog(...args) {
-    if (GM_getValue('weread_tts_debug', false)) {
-      console.log('[WereadTTS]', ...args);
-    }
-  },
+  /** 调试输出：生产包已移除 console 输出 */
+  debugLog() {},
 
   /** 剩余朗读时长（秒），供 autoRead 计算语音模式下的翻页等待 */
   getRemainingSeconds() {
