@@ -1,0 +1,17 @@
+// ==UserScript==
+// @name         微信读书增强脚本(新增AI语音阅读）
+// @version      2.0.2
+// @namespace    http://tampermonkey.net/
+// @description  增加多功能按钮，内含多种颜色护眼模式、调整页面宽度、AI 语音阅读、自动翻页滚动、定时停止、图片复制与下载
+// @author       Chloe
+// @match        https://weread.qq.com/web/reader/*
+// @icon         https://weread.qq.com/favicon.ico
+// @require      https://code.jquery.com/jquery-3.7.1.min.js
+// @grant        GM_addStyle
+// @grant        GM_setValue
+// @grant        GM_getValue
+// @grant        GM_download
+// @grant        GM_setClipboard
+// @grant        unsafeWindow
+// @license      MIT
+// ==/UserScript==

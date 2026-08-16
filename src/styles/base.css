@@ -1,0 +1,33 @@
+*{font-family: TsangerJinKai05 !important;}
+.readerTopBar{font-family: SourceHanSerifCN-Bold !important;}
+.bookInfo_title{font-family: SourceHanSerifCN-Bold !important;}
+.readerTopBar_title_link{font-family: SourceHanSerifCN-Bold !important; font-weight:bold !important;}
+.readerTopBar_title_chapter{font-family: SourceHanSerifCN-Bold !important;}
+.readerChapterContent{color: rgba(0,0,0,100) !important;}
+.readerControls{margin-left: calc(50% - 60px) !important; margin-bottom: -28px !important;}
+
+.custom-notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 6px;
+  z-index: 9999999;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  max-width: 80%;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.custom-notification.fade-out {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-20px);
+}

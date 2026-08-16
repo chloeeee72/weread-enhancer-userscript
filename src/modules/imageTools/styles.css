@@ -1,0 +1,70 @@
+.image-toolbar-container {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 1000;
+  display: none;
+}
+
+.image-toolbar {
+  display: flex;
+  gap: 3px;
+  background: rgba(0,0,0,0.7);
+  border-radius: 4px;
+  padding: 3px;
+  backdrop-filter: blur(5px);
+}
+
+.image-tool-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  transition: all 0.2s ease;
+}
+
+.image-tool-btn:hover:not(.disabled) {
+  background: rgba(255,255,255,0.2);
+  transform: scale(1.1);
+}
+
+.image-tool-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.image-tool-btn.loading {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.image-tool-icon {
+  font-size: 12px;
+  line-height: 1;
+}
+
+.passage-content {
+  position: relative !important;
+}
+
+.passage-content .image-toolbar-container {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 1001;
+}
+
+.passageContent_wrapper .image-toolbar-container {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}

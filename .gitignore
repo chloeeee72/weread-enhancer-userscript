@@ -1,0 +1,6 @@
+node_modules/
+debug/
+.chrome-debug-profile/
+.chrome-debug-profile-2/
+*.log
+.DS_Store
