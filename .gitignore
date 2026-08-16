@@ -1,5 +1,7 @@
 node_modules/
 debug/
+doc/
+test/
 .chrome-debug-profile/
 .chrome-debug-profile-2/
 *.log
